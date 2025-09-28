@@ -154,3 +154,4 @@ C:\Users\oriya\OneDrive\מסמכים\פרוייקטים\מטלת בית\RoleMana
 C:\Users\oriya\OneDrive\מסמכים\פרוייקטים\מטלת בית\RoleManager\AuthApi\obj\Debug\net9.0\AuthApi.pdb
 C:\Users\oriya\OneDrive\מסמכים\פרוייקטים\מטלת בית\RoleManager\AuthApi\obj\Debug\net9.0\AuthApi.genruntimeconfig.cache
 C:\Users\oriya\OneDrive\מסמכים\פרוייקטים\מטלת בית\RoleManager\AuthApi\obj\Debug\net9.0\ref\AuthApi.dll
+C:\Users\oriya\OneDrive\מסמכים\פרוייקטים\מטלת בית\RoleManager\AuthApi\obj\Debug\net9.0\AuthApi.sourcelink.json
