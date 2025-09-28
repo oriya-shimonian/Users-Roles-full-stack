@@ -40,3 +40,4 @@ app.UseCors("frontend");
 app.MapControllers();
 
 app.Run();
+
