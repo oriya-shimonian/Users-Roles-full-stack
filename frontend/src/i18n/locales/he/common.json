@@ -18,5 +18,9 @@
   "form.email": "אימייל",
   "form.roleName": "שם תפקיד",
   "empty.noUsers": "לא נמצאו משתמשים",
-  "action.remove": "הסר"
+  "action.remove": "הסר",
+  "notfound.title": "הדף לא נמצא",
+  "notfound.message": "הדף שחיפשת לא קיים או הועבר.",
+  "button.goHome": "חזרה לבית",
+  "button.back": "חזרה"
 }

@@ -18,5 +18,9 @@
   "form.email": "Email",
   "form.roleName": "Role name",
   "empty.noUsers": "No users found",
-  "action.remove": "Remove"
+  "action.remove": "Remove",
+  "notfound.title": "Page not found",
+  "notfound.message": "The page you’re looking for doesn’t exist or was moved.",
+  "button.goHome": "Go Home",
+  "button.back": "Back"
 }

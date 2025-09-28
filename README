@@ -1,0 +1,65 @@
+````md
+# RoleManager (Home Assignment)
+
+**Stack**
+- Backend: .NET 8 Web API + EF Core (SQLite) + Swagger
+- Frontend: React + TypeScript (Vite) + i18n (EN/HE, RTL) + React Router
+- SQL: `sql/init.sql` (schema, seed, and "Admin users" query)
+
+## Run
+
+### Backend
+```bash
+cd AuthApi
+dotnet run
+# API     http://localhost:5000
+# Swagger http://localhost:5000/swagger
+````
+
+* On first run, if `AuthApi/app.db` does not exist, the API initializes it from `../sql/init.sql`.
+
+### Frontend
+
+```bash
+cd frontend
+npm i
+npm run dev
+# App http://localhost:5173
+```
+
+* The frontend expects the API at `http://localhost:5000` (CORS is enabled).
+
+## SQL (to submit)
+
+* File: `sql/init.sql`
+* Tables: `Users`, `Roles` (unique `RoleName`), `UserRoles` (composite PK: `UserId, RoleId`)
+* Seed: a few users/roles and sample assignments
+* Required query (users with `Admin` role):
+
+```sql
+SELECT u.*
+FROM Users u
+JOIN UserRoles ur ON u.Id = ur.UserId
+JOIN Roles r ON r.Id = ur.RoleId
+WHERE r.RoleName = 'Admin';
+```
+
+## Features (quick)
+
+* Users: list/search/filter, **Add User (modal)**, **Delete (confirm modal)**, **Assign/Unassign** roles
+* Roles: list/create, styled cards with counts, **“View Users” modal** (search & scroll)
+* i18n: EN/HE switch + RTL/LTR
+* Routing: `/users` and `/roles`
+* **Not Found page** (404) with MP4 animation and navigation
+
+## What I added beyond the brief
+
+* Internationalization (EN/HE) + full RTL support
+* Clean routing with `/users` and `/roles` (better UX than a single root path)
+* UI/UX polish: modals for Add User and Delete confirmation; role cards and per-role users modal
+* Role **unassign** endpoint and UI
+* Safer JSON handling & client-side normalization to avoid serialization cycles
+* Automatic DB init from `sql/init.sql` on first run
+* Clear project structure and documentation (English-only comments in code)
+
+```
