@@ -1,7 +1,21 @@
 /**
- * Styled role card with icon, name and count.
+ * Props for RoleCard
+ * @property name        Role display name (e.g., "Admin").
+ * @property usersCount  Optional number of users in the role (shows a hint).
+ * @property onView      Optional handler (e.g., open a modal with members).
  */
 type Props = { name: string; usersCount?: number; onView?: () => void };
+
+/**
+ * RoleCard
+ *
+ * Purpose:
+ * - Presents a single role in a styled card with an icon, name, and optional count.
+ * - Optionally renders a call-to-action button (e.g., "View Users") when `onView` is provided.
+ *
+ * Styling:
+ * - Inline gradient/background/shadow for quick polish; swap to your design system if needed.
+ */
 
 export default function RoleCard({ name, usersCount, onView }: Props) {
   return (

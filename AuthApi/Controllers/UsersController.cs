@@ -1,3 +1,17 @@
+/// <summary>
+/// Users API: listing, creation, deletion, and role assignment.
+/// Keeps controllers thin; projections to flat DTOs avoid JSON reference cycles.
+/// </summary>
+/// <remarks>
+/// Endpoints:
+/// - GET    /api/users
+/// - POST   /api/users
+/// - DELETE /api/users/{id}
+/// - POST   /api/users/{userId}/roles/{roleId}
+/// - DELETE /api/users/{userId}/roles/{roleId}
+/// Response codes follow REST conventions: 200/201/204 on success, 404/409 on errors.
+/// </remarks>
+
 using AuthApi.Data;
 using AuthApi.DTOs;
 using AuthApi.Models;
@@ -26,7 +40,7 @@ public class UsersController(AppDbContext db) : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<User>>> GetUsers()
     {
-        // מחזירים גם את התפקידים שהוקצו (לא חובה, אבל נוח ל-UI)
+        // returns also the assigned roles (for UI simplifiy)
         var users = await db.Users
             .Include(u => u.UserRoles)
             .ThenInclude(ur => ur.Role)

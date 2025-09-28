@@ -1,11 +1,35 @@
 /**
- * Displays a single user with tag-like roles, role assign select, and delete action.
+ * UserCard
+ *
+ * Purpose:
+ * - Displays a user with email, current role tags, an assignment selector,
+ *   and a delete action protected by a confirmation dialog.
+ *
+ * Behavior:
+ * - Role tags render with a small "✕" to unassign (uses `allRoles` to resolve roleId).
+ * - The select lists roles; items already assigned are disabled and marked with ✓.
+ * - On delete click, opens `ConfirmDialog`; upon confirm, calls `onDelete`.
+ *
+ * i18n:
+ * - Placeholders and messages are read from `react-i18next`.
+ *
+ * Notes:
+ * - Assumes `user.roles` is a string array; if data may be missing, ensure normalization upstream.
+ * - Side effects (assign/unassign/delete) are delegated to parent via props; the parent can refresh the list on completion.
  */
+
 import { useState } from "react";
 import type { Role, UserDTO } from "../api/types";
 import { useTranslation } from "react-i18next";
 import ConfirmDialog from "./modals/ConfirmDialog";
-
+/**
+ * Props for UserCard
+ * @property user        Flat user DTO: { id, username, email, roles: string[] }.
+ * @property allRoles    Full catalog of roles (used to map roleName -> roleId).
+ * @property onAssign    Handler to assign a role to this user (userId, roleId).
+ * @property onUnassign  Handler to remove a role from this user (userId, roleId).
+ * @property onDelete    Handler to delete this user (userId).
+ */
 type Props = {
   user: UserDTO;
   allRoles: Role[];

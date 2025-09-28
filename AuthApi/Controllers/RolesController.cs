@@ -1,3 +1,11 @@
+/// <summary>
+/// Roles API: list/create roles and query users by role.
+/// </summary>
+/// <remarks>
+/// - GET  /api/roles
+/// - POST /api/roles
+/// - GET  /api/roles/{roleName}/users
+/// </remarks>
 using AuthApi.Data;
 using AuthApi.DTOs;
 using AuthApi.Models;
@@ -36,7 +44,6 @@ public class RolesController(AppDbContext db) : ControllerBase
         return Ok(await db.Roles.ToListAsync());
     }
 
-    // Endpoint נוסף: כל המשתמשים לפי שם תפקיד
     // GET /api/roles/{roleName}/users
     [HttpGet("{roleName}/users")]
     public async Task<ActionResult<IEnumerable<User>>> GetUsersByRole(string roleName)

@@ -60,3 +60,4 @@ WHERE r.RoleName = 'Admin';
 * Safer JSON handling & client-side normalization to avoid serialization cycles
 * Automatic DB init from `sql/init.sql` on first run
 * Clear project structure and documentation (English-only comments in code)
+* Design supported at all devices

@@ -1,20 +1,29 @@
 /**
- * Generic confirmation dialog built on top of Modal.
- * Pass a title/message and confirm/cancel handlers.
+ * Generic confirmation dialog built on top of <Modal />.
+ * - Shows an optional message and two actions (Cancel / Confirm).
+ * - Useful for destructive actions (e.g., deleting a user).
  */
-import type { CSSProperties } from "react";
-import Modal from "./Modal";
+import type { CSSProperties } from "react";  // type-only (verbatimModuleSyntax)
 import { useTranslation } from "react-i18next";
+import Modal from "./Modal";
 
 type Props = {
+  /** Whether the dialog is visible. */
   open: boolean;
+  /** Header text shown inside the modal title. */
   title: string;
+  /** Optional body text. */
   message?: string;
+  /** Optional label override for the confirm button. */
   confirmText?: string;
+  /** Optional label override for the cancel button. */
   cancelText?: string;
+  /** Called when the user confirms. */
   onConfirm: () => void;
+  /** Called when the dialog should close (backdrop, ESC, or Cancel). */
   onClose: () => void;
 };
+
 
 export default function ConfirmDialog({
   open, title, message,

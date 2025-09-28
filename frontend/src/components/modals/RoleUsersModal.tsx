@@ -1,13 +1,37 @@
 /**
- * Modal to display users for a specific role with local search and scroll container.
- * Works well even with 100+ users.
+ * RoleUsersModal
+ *
+ * Purpose:
+ * - Displays all users that belong to a given role in a scrollable list.
+ * - Includes a local client-side search box (filters by username/email).
+ *
+ * Data flow:
+ * - On open AND when `role` changes, fetches users via `getUsersByRole`.
+ * - Keeps results in local state; filtering is memoized (`useMemo`).
+ *
+ * UX:
+ * - Bounded height with vertical scroll for large lists (100+ users).
+ * - Shows an empty-state message when no users match the filter.
+ *
+ * i18n:
+ * - All visible strings use `react-i18next`.
+ *
+ * Performance notes:
+ * - For very large datasets, consider server-side pagination/limits.
  */
+
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Modal from "./Modal";
 import type { Role, UserDTO } from "../../api/types";
 import { getUsersByRole } from "../../api/roles";
 
+/**
+ * Props
+ * @property open  Whether the modal is visible.
+ * @property role  The active role object; when null, nothing is loaded.
+ * @property onClose Close handler for the parent to control visibility.
+ */
 type Props = {
   open: boolean;
   role: Role | null;

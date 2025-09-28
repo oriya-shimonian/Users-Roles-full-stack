@@ -28,6 +28,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 
         modelBuilder.Entity<Role>()
             .HasIndex(r => r.RoleName)
-            .IsUnique(); // RoleName ייחודי
+            .IsUnique(); // unique RoleName 
     }
 }

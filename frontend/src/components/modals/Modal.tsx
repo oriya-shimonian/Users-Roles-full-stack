@@ -1,8 +1,36 @@
 /**
- * Accessible modal with backdrop and focus trap (basic).
+ * Modal (accessible baseline)
+ *
+ * Features:
+ * - Renders a centered panel with a backdrop.
+ * - Closes on ESC key and on backdrop click.
+ * - Prevents click-through by stopping propagation on the panel.
+ *
+ * Accessibility:
+ * - Uses role="dialog" and aria-modal="true".
+ * - Accepts an optional `title` used as aria-label.
+ * - NOTE: Focus trap is minimal (ESC + backdrop). For full trap, integrate with
+ *   a library or add focus management (initial focus + tab cycle).
+ *
+ * Usage:
+ *   <Modal open={open} onClose={() => setOpen(false)} title="My dialog">
+ *     ...content...
+ *   </Modal>
+ *
+ * Styling:
+ * - Inline styles keep the component self-contained.
+ * - Override or replace with a design system as needed.
  */
 import { useEffect } from "react";
 import type { PropsWithChildren } from "react"
+
+/**
+ * Props for Modal
+ * @property open     Controls visibility.
+ * @property onClose  Invoked when user dismisses (ESC or backdrop click).
+ * @property title    Optional heading for accessibility (aria-label).
+ * @property children Dialog content.
+ */
 type Props = PropsWithChildren<{
   open: boolean;
   onClose: () => void;
@@ -29,6 +57,12 @@ export default function Modal({ open, onClose, title, children }: Props) {
   );
 }
 
+/**
+ * Inline style tokens for the modal:
+ * - `backdrop`: fixed full-screen overlay with semi-transparent background.
+ * - `panel`: centered container with rounded corners and shadow.
+ * Extract into CSS modules or a design system when scaling.
+ */
 const styles: Record<string, React.CSSProperties> = {
   backdrop: {
     position: "fixed", inset: 0, background: "rgba(0,0,0,0.35)",

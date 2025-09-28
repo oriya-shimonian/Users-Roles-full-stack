@@ -1,6 +1,19 @@
 /**
- * Simple EN/HE language switcher. Toggles i18n and thus document direction.
+ * LanguageSwitcher
+ *
+ * Purpose:
+ * - Toggles between "en" and "he" using i18next.
+ * - Works in tandem with a global direction hook (e.g., `useDirection`)
+ *   that sets <html dir="rtl|ltr"> based on the active language.
+ *
+ * Assumptions:
+ * - i18n is initialized once in app bootstrap.
+ * - The current language is available at `i18n.language`.
+ *
+ * UX:
+ * - Button label shows the current language code in uppercase (EN/HE).
  */
+
 import i18n from "../i18n";
 
 export default function LanguageSwitcher() {

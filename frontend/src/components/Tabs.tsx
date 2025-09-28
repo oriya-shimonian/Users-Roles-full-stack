@@ -1,5 +1,9 @@
+
 /**
- * Minimal tabs for Users/Roles. Controlled by parent (App).
+ * Props for Tabs
+ * @property active   The currently active tab key ("users" | "roles").
+ * @property onChange Callback fired with the next tab key when a tab is clicked.
+ * @property labels   Display labels for the two tabs (i18n-friendly).
  */
 type Props = {
   active: "users" | "roles";
@@ -7,6 +11,17 @@ type Props = {
   labels: { users: string; roles: string };
 };
 
+/**
+ * Tabs (controlled)
+ *
+ * Purpose:
+ * - Minimal two-tab switcher (Users / Roles).
+ * - Controlled component: parent owns the state and passes `active` + `onChange`.
+ *
+ * Accessibility:
+ * - Visual-only tabs. For full WAI-ARIA tab semantics, add role="tablist"/"tab"
+ *   and keyboard navigation. Current implementation is sufficient for the task scope.
+ */
 export default function Tabs({ active, onChange, labels }: Props) {
   return (
     <div style={{ display: "flex", gap: 12, marginBottom: 20 }}>
