@@ -1,17 +1,19 @@
 /// <summary>
 /// Users API: listing, creation, deletion, and role assignment.
-/// Keeps controllers thin; projections to flat DTOs avoid JSON reference cycles.
+/// Controllers remain thin; data shaping is done via EF projections to avoid JSON cycles.
 /// </summary>
 /// <remarks>
-/// Endpoints:
-/// - GET    /api/users
-/// - POST   /api/users
-/// - DELETE /api/users/{id}
-/// - POST   /api/users/{userId}/roles/{roleId}
-/// - DELETE /api/users/{userId}/roles/{roleId}
-/// Response codes follow REST conventions: 200/201/204 on success, 404/409 on errors.
+/// <para><b>Endpoints</b></para>
+/// <list type="bullet">
+///   <item><description><c>GET    /api/users</c> – list users (includes assigned roles)</description></item>
+///   <item><description><c>POST   /api/users</c> – create user</description></item>
+///   <item><description><c>DELETE /api/users/{id}</c> – delete user</description></item>
+///   <item><description><c>POST   /api/users/{userId}/roles/{roleId}</c> – assign role to user</description></item>
+///   <item><description><c>DELETE /api/users/{userId}/roles/{roleId}</c> – unassign role</description></item>
+///   <item><description><c>GET    /api/users/{userId}/roles</c> – list roles of a user</description></item>
+/// </list>
+/// <para>Response codes follow REST conventions: 200/201/204 on success, 400/404/409 on errors.</para>
 /// </remarks>
-
 using AuthApi.Data;
 using AuthApi.DTOs;
 using AuthApi.Models;
@@ -24,7 +26,13 @@ namespace AuthApi.Controllers;
 [Route("api/[controller]")]
 public class UsersController(AppDbContext db) : ControllerBase
 {
-    // POST /api/users
+    /// <summary>
+    /// Creates a new user.
+    /// </summary>
+    /// <param name="dto">Payload containing <see cref="CreateUserDto.Username"/> and <see cref="CreateUserDto.Email"/>.</param>
+    /// <returns>201 Created with the created user.</returns>
+    /// <response code="201">User created successfully.</response>
+    /// <response code="400">Validation failed (missing/invalid fields).</response>
     [HttpPost]
     public async Task<ActionResult<User>> CreateUser(CreateUserDto dto)
     {
@@ -36,11 +44,14 @@ public class UsersController(AppDbContext db) : ControllerBase
         return CreatedAtAction(nameof(GetUsers), new { id = user.Id }, user);
     }
 
-    // GET /api/users
+    /// <summary>
+    /// Lists all users including their assigned roles.
+    /// </summary>
+    /// <returns>200 OK with users (and their roles).</returns>
     [HttpGet]
     public async Task<ActionResult<IEnumerable<User>>> GetUsers()
     {
-        // returns also the assigned roles (for UI simplifiy)
+        // Includes roles for a simplified UI binding
         var users = await db.Users
             .Include(u => u.UserRoles)
             .ThenInclude(ur => ur.Role)
@@ -48,7 +59,11 @@ public class UsersController(AppDbContext db) : ControllerBase
         return Ok(users);
     }
 
-    // DELETE /api/users/{id}
+    /// <summary>
+    /// Deletes a user by id.
+    /// </summary>
+    /// <param name="id">User identifier.</param>
+    /// <returns>204 No Content on success; 404 if not found.</returns>
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> DeleteUser(int id)
     {
@@ -59,12 +74,20 @@ public class UsersController(AppDbContext db) : ControllerBase
         return NoContent();
     }
 
-    // POST /api/users/{userId}/roles/{roleId} - שיוך תפקיד למשתמש
+    /// <summary>
+    /// Assigns a role to a user (prevents duplicates).
+    /// </summary>
+    /// <param name="userId">User identifier.</param>
+    /// <param name="roleId">Role identifier.</param>
+    /// <returns>200 OK on success; 404 if user/role not found; 409 on duplicate assignment.</returns>
+    /// <remarks>
+    /// Duplicate assignment is prevented both in code and by the composite PK on <c>UserRoles(UserId, RoleId)</c>.
+    /// </remarks>
     [HttpPost("{userId:int}/roles/{roleId:int}")]
     public async Task<IActionResult> AssignRole(int userId, int roleId)
     {
         var exists = await db.UserRoles.AnyAsync(ur => ur.UserId == userId && ur.RoleId == roleId);
-        if (exists) return Conflict("Role already assigned to this user."); // מניעת שיוך כפול
+        if (exists) return Conflict("Role already assigned to this user."); // prevent duplicate
 
         var userExists = await db.Users.AnyAsync(u => u.Id == userId);
         var roleExists = await db.Roles.AnyAsync(r => r.Id == roleId);
@@ -75,7 +98,11 @@ public class UsersController(AppDbContext db) : ControllerBase
         return Ok();
     }
 
-    // GET /api/users/{userId}/roles - רשימת התפקידים של משתמש
+    /// <summary>
+    /// Returns all roles assigned to a specific user.
+    /// </summary>
+    /// <param name="userId">User identifier.</param>
+    /// <returns>200 OK with the roles.</returns>
     [HttpGet("{userId:int}/roles")]
     public async Task<ActionResult<IEnumerable<Role>>> GetUserRoles(int userId)
     {
@@ -87,7 +114,12 @@ public class UsersController(AppDbContext db) : ControllerBase
         return Ok(roles);
     }
 
-    // DELETE /api/users/{userId}/roles/{roleId} - unassign role from user
+    /// <summary>
+    /// Removes a role assignment from a user.
+    /// </summary>
+    /// <param name="userId">User identifier.</param>
+    /// <param name="roleId">Role identifier.</param>
+    /// <returns>204 No Content on success; 404 if the assignment does not exist.</returns>
     [HttpDelete("{userId:int}/roles/{roleId:int}")]
     public async Task<IActionResult> UnassignRole(int userId, int roleId)
     {
@@ -98,4 +130,3 @@ public class UsersController(AppDbContext db) : ControllerBase
         return NoContent();
     }
 }
-
