@@ -1,0 +1,22 @@
+{
+  "app.title": "ניהול גישה",
+  "app.subtitle": "ניהול משתמשים, תפקידים והרשאות בצורה יעילה",
+  "tabs.users": "משתמשים",
+  "tabs.roles": "תפקידים",
+  "search.users.placeholder": "חיפוש משתמשים...",
+  "filter.roles.all": "כל התפקידים",
+  "button.addUser": "הוספת משתמש",
+  "button.addRole": "הוספת תפקיד",
+  "button.viewUsers": "הצגת משתמשים",
+  "button.save": "שמירה",
+  "button.close": "סגירה",
+  "assign.role.placeholder": "שיוך תפקיד...",
+  "role.management": "ניהול תפקידים",
+  "users.suffix": "משתמשים",
+  "confirm.deleteUser": "למחוק משתמש?",
+  "form.username": "שם משתמש",
+  "form.email": "אימייל",
+  "form.roleName": "שם תפקיד",
+  "empty.noUsers": "לא נמצאו משתמשים",
+  "action.remove": "הסר"
+}

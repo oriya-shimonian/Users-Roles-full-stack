@@ -1,0 +1,22 @@
+{
+  "app.title": "Access Management",
+  "app.subtitle": "Manage users, roles, and permissions efficiently",
+  "tabs.users": "Users",
+  "tabs.roles": "Roles",
+  "search.users.placeholder": "Search users...",
+  "filter.roles.all": "All Roles",
+  "button.addUser": "Add User",
+  "button.addRole": "Add Role",
+  "button.viewUsers": "View Users",
+  "button.save": "Save",
+  "button.close": "Close",
+  "assign.role.placeholder": "Assign Role...",
+  "role.management": "Role Management",
+  "users.suffix": "users",
+  "confirm.deleteUser": "Delete user?",
+  "form.username": "Username",
+  "form.email": "Email",
+  "form.roleName": "Role name",
+  "empty.noUsers": "No users found",
+  "action.remove": "Remove"
+}

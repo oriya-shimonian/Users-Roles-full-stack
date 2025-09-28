@@ -72,4 +72,16 @@ public class UsersController(AppDbContext db) : ControllerBase
 
         return Ok(roles);
     }
+
+    // DELETE /api/users/{userId}/roles/{roleId} - unassign role from user
+    [HttpDelete("{userId:int}/roles/{roleId:int}")]
+    public async Task<IActionResult> UnassignRole(int userId, int roleId)
+    {
+        var link = await db.UserRoles.FindAsync(userId, roleId);
+        if (link is null) return NotFound();
+        db.UserRoles.Remove(link);
+        await db.SaveChangesAsync();
+        return NoContent();
+    }
 }
+
