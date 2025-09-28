@@ -27,6 +27,7 @@ export async function getUsersByRole(roleName: string): Promise<UserDTO[]> {
   return data.map(normalizeUser);
 }
 
+
 export async function unassignRole(userId: number, roleId: number): Promise<void> {
   const res = await fetch(`${BASE_URL}/api/users/${userId}/roles/${roleId}`, { method: "DELETE" });
   if (!res.ok) throw new Error(await res.text());

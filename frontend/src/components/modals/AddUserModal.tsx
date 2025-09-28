@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Modal from "./Modal";
-import { createUser } from "../api/users";
+import { createUser } from "../../api/users";
 
 type Props = {
   open: boolean;

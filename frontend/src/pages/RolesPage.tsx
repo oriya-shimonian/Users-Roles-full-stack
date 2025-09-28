@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import type { Role, UserDTO } from "../api/types";
 import { getRoles, createRole, getUsersByRole } from "../api/roles";
 import RoleCard from "../components/RoleCard";
-import RoleUsersModal from "../components/RoleUsersModal";
+import RoleUsersModal from "../components/modals/RoleUsersModal";
 
 export default function RolesPage() {
   const { t } = useTranslation();

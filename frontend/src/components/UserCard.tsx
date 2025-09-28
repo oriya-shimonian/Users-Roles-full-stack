@@ -4,7 +4,7 @@
 import { useState } from "react";
 import type { Role, UserDTO } from "../api/types";
 import { useTranslation } from "react-i18next";
-import ConfirmDialog from "./ConfirmDialog";
+import ConfirmDialog from "./modals/ConfirmDialog";
 
 type Props = {
   user: UserDTO;

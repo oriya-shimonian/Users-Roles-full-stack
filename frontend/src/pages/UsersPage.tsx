@@ -7,7 +7,7 @@ import type { Role, UserDTO } from "../api/types";
 import { getRoles, assignRole, unassignRole } from "../api/roles";
 import { getUsers, createUser, deleteUser } from "../api/users";
 import UserCard from "../components/UserCard";
-import AddUserModal from "../components/AddUserModal";
+import AddUserModal from "../components/modals/AddUserModal";
 
 export default function UsersPage() {
   const { t } = useTranslation();

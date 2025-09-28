@@ -5,8 +5,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Modal from "./Modal";
-import type { Role, UserDTO } from "../api/types";
-import { getUsersByRole } from "../api/roles";
+import type { Role, UserDTO } from "../../api/types";
+import { getUsersByRole } from "../../api/roles";
 
 type Props = {
   open: boolean;
