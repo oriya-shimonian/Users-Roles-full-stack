@@ -4,7 +4,7 @@
  */
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import notFoundVideo from "../assets/404.mp4";
+import notFoundVideo from "../assets/404 Error.mp4";
 import type { CSSProperties } from "react";
 
 export default function NotFoundPage() {
